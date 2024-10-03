@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>LinkedIn Post Generator</h1>
+        <form id="post-form">
+            <div class="form-group">
+                <label for="input-text">Input Text</label>
+                <textarea id="input-text" name="input_text" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Short Prompts</label>
+                <div class="short-prompts">
+                    {% for prompt in short_prompts %}
+                    <button type="button" class="short-prompt">{{ prompt }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Post</button>
+        </form>
+        <div id="result" class="hidden">
+            <h2>Generated LinkedIn Post</h2>
+            <div id="linkedin-post"></div>
+            <button id="copy-post" class="btn btn-secondary">Copy Post</button>
+            
+            <h2>Generated Image Prompt</h2>
+            <div id="image-prompt"></div>
+            <button id="copy-prompt" class="btn btn-secondary">Copy Image Prompt</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
